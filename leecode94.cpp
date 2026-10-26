@@ -13,13 +13,27 @@ class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> v;
-        if (root == nullptr) return v;
-        vector<int> tmp = inorderTraversal(root->left);
-        move(tmp.begin(),tmp.end(),back_inserter(v));
-        tmp.clear();
-        v.push_back(root->val);
-        tmp = inorderTraversal(root->right);
-        move(tmp.begin(),tmp.end(),back_inserter(v));
+        while (root)
+        {
+            if (root->left){
+                TreeNode *mostRight = root->left;
+                while ( mostRight->right != root && mostRight->right != nullptr) mostRight = mostRight->right;
+                if (mostRight->right == root) {
+                    v.push_back(root->val);
+                    mostRight->right = nullptr;
+                    root = root->right;
+                }
+                else if (mostRight->right == nullptr) {
+                    mostRight->right = root;
+                    root = root->left;
+                }
+            }
+            else 
+            {
+                v.push_back(root->val);
+                root = root->right;
+            }
+        }
         return v;
     }
 };
