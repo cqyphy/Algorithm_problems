@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int left,right;
+};
+
+node v[1000000];
+
+int deep(int i){
+    int res = 1;
+    if (!v[i].left && !v[i].right) return 1;
+    res += max(deep(v[i].left),deep(v[i].right));
+    return res;
+}
+
+int main(){
+    int n;
+    scanf("%d",&n);
+    for (int i = 1; i < n+1; i++)
+    {
+        scanf("%d %d",&v[i].left,&v[i].right);
+    }
+    int res = deep(1);
+    printf("%d",res);
+}
+
+/*# P4913 【深基16.例3】二叉树深度
+
+## 题目描述
+
+有一个 $n(n \le 10^6)$ 个结点的二叉树。给出每个结点的两个子结点编号（均不超过 $n$），建立一棵二叉树（根节点的编号为 $1$），如果是叶子结点，则输入 `0 0`。
+
+建好这棵二叉树之后，请求出它的深度。二叉树的**深度**是指从根节点到叶子结点时，最多经过了几层。
+
+## 输入格式
+
+第一行一个整数 $n$，表示结点数。
+
+之后 $n$ 行，第 $i$ 行两个整数 $l$、$r$，分别表示结点 $i$ 的左右子结点编号。若 $l=0$ 则表示无左子结点，$r=0$ 同理。
+
+## 输出格式
+
+一个整数，表示最大结点深度。
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+7
+2 7
+3 6
+4 5
+0 0
+0 0
+0 0
+0 0
+```
+
+### 输出 #1
+
+```
+4
+```*/
